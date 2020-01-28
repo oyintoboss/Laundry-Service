@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="077b6a1d3e8f447b97cb4629597796bb" Name="Diagram1">
+        <EntityTypeShape EntityType="DEBEXCELModel.C_tblAmount" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEBEXCELModel.C_tblDuration" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEBEXCELModel.C_tblSavingMethod" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEBEXCELModel.C_tblUser" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEBEXCELModel.C_tblUserAdmin" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEBEXCELModel.C_tblWithdraw" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEBEXCELModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DEBEXCELModel.FK__tblAmount__tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="DEBEXCELModel.FK__tblDuration__tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="DEBEXCELModel.FK__tblSavingMethod__tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="DEBEXCELModel.FK__tblUserAdmin__tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="DEBEXCELModel.FK__tblWithdraw__tblUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

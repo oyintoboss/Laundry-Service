@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DEBEXCELModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="_tblAmount">
+          <Key>
+            <PropertyRef Name="AmountID" />
+          </Key>
+          <Property Name="AmountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AmuntPrice" Type="money" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblDuration">
+          <Key>
+            <PropertyRef Name="DurationID" />
+          </Key>
+          <Property Name="DurationID" Type="int" Nullable="false" />
+          <Property Name="Months" Type="char" MaxLength="2" />
+          <Property Name="Twilight" Type="bit" Nullable="false" />
+          <Property Name="Weekly" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblSavingMethod">
+          <Key>
+            <PropertyRef Name="MethodID" />
+          </Key>
+          <Property Name="MethodID" Type="int" Nullable="false" />
+          <Property Name="Online" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Offline" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="15" />
+          <Property Name="LastName" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="SavingMethod" Type="char" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblUserAdmin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="SavingID" Type="int" Nullable="false" />
+          <Property Name="Password" Type="varchar(max)" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblWithdraw">
+          <Key>
+            <PropertyRef Name="WithdrawID" />
+          </Key>
+          <Property Name="WithdrawID" Type="int" Nullable="false" />
+          <Property Name="WitdrawMethod" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="WithdrawReason" Type="varchar(max)" />
+          <Property Name="Feedback" Type="varchar(max)" />
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__tblAmount__tblUser">
+          <End Role="_tblUser" Type="Self._tblUser" Multiplicity="1" />
+          <End Role="_tblAmount" Type="Self._tblAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="_tblAmount">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblDuration__tblUser">
+          <End Role="_tblUser" Type="Self._tblUser" Multiplicity="1" />
+          <End Role="_tblDuration" Type="Self._tblDuration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="_tblDuration">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSavingMethod__tblUser">
+          <End Role="_tblUser" Type="Self._tblUser" Multiplicity="1" />
+          <End Role="_tblSavingMethod" Type="Self._tblSavingMethod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="_tblSavingMethod">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblUserAdmin__tblUser">
+          <End Role="_tblUser" Type="Self._tblUser" Multiplicity="1" />
+          <End Role="_tblUserAdmin" Type="Self._tblUserAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="_tblUserAdmin">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWithdraw__tblUser">
+          <End Role="_tblUser" Type="Self._tblUser" Multiplicity="1" />
+          <End Role="_tblWithdraw" Type="Self._tblWithdraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="_tblWithdraw">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DEBEXCELModelStoreContainer">
+          <EntitySet Name="_tblAmount" EntityType="Self._tblAmount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblDuration" EntityType="Self._tblDuration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblSavingMethod" EntityType="Self._tblSavingMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblUser" EntityType="Self._tblUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblUserAdmin" EntityType="Self._tblUserAdmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblWithdraw" EntityType="Self._tblWithdraw" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblAmount__tblUser" Association="Self.FK__tblAmount__tblUser">
+            <End Role="_tblUser" EntitySet="_tblUser" />
+            <End Role="_tblAmount" EntitySet="_tblAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblDuration__tblUser" Association="Self.FK__tblDuration__tblUser">
+            <End Role="_tblUser" EntitySet="_tblUser" />
+            <End Role="_tblDuration" EntitySet="_tblDuration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSavingMethod__tblUser" Association="Self.FK__tblSavingMethod__tblUser">
+            <End Role="_tblUser" EntitySet="_tblUser" />
+            <End Role="_tblSavingMethod" EntitySet="_tblSavingMethod" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblUserAdmin__tblUser" Association="Self.FK__tblUserAdmin__tblUser">
+            <End Role="_tblUser" EntitySet="_tblUser" />
+            <End Role="_tblUserAdmin" EntitySet="_tblUserAdmin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWithdraw__tblUser" Association="Self.FK__tblWithdraw__tblUser">
+            <End Role="_tblUser" EntitySet="_tblUser" />
+            <End Role="_tblWithdraw" EntitySet="_tblWithdraw" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DEBEXCELModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C_tblAmount">
+          <Key>
+            <PropertyRef Name="AmountID" />
+          </Key>
+          <Property Name="AmountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AmuntPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="C_tblUser" Relationship="Self.FK__tblAmount__tblUser" FromRole="C_tblAmount" ToRole="C_tblUser" />
+        </EntityType>
+        <EntityType Name="C_tblDuration">
+          <Key>
+            <PropertyRef Name="DurationID" />
+          </Key>
+          <Property Name="DurationID" Type="Int32" Nullable="false" />
+          <Property Name="Months" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Twilight" Type="Boolean" Nullable="false" />
+          <Property Name="Weekly" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="C_tblUser" Relationship="Self.FK__tblDuration__tblUser" FromRole="C_tblDuration" ToRole="C_tblUser" />
+        </EntityType>
+        <EntityType Name="C_tblSavingMethod">
+          <Key>
+            <PropertyRef Name="MethodID" />
+          </Key>
+          <Property Name="MethodID" Type="Int32" Nullable="false" />
+          <Property Name="Online" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Offline" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="C_tblUser" Relationship="Self.FK__tblSavingMethod__tblUser" FromRole="C_tblSavingMethod" ToRole="C_tblUser" />
+        </EntityType>
+        <EntityType Name="C_tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SavingMethod" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="C_tblAmount" Relationship="Self.FK__tblAmount__tblUser" FromRole="C_tblUser" ToRole="C_tblAmount" />
+          <NavigationProperty Name="C_tblDuration" Relationship="Self.FK__tblDuration__tblUser" FromRole="C_tblUser" ToRole="C_tblDuration" />
+          <NavigationProperty Name="C_tblSavingMethod" Relationship="Self.FK__tblSavingMethod__tblUser" FromRole="C_tblUser" ToRole="C_tblSavingMethod" />
+          <NavigationProperty Name="C_tblUserAdmin" Relationship="Self.FK__tblUserAdmin__tblUser" FromRole="C_tblUser" ToRole="C_tblUserAdmin" />
+          <NavigationProperty Name="C_tblWithdraw" Relationship="Self.FK__tblWithdraw__tblUser" FromRole="C_tblUser" ToRole="C_tblWithdraw" />
+        </EntityType>
+        <EntityType Name="C_tblUserAdmin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SavingID" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="C_tblUser" Relationship="Self.FK__tblUserAdmin__tblUser" FromRole="C_tblUserAdmin" ToRole="C_tblUser" />
+        </EntityType>
+        <EntityType Name="C_tblWithdraw">
+          <Key>
+            <PropertyRef Name="WithdrawID" />
+          </Key>
+          <Property Name="WithdrawID" Type="Int32" Nullable="false" />
+          <Property Name="WitdrawMethod" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="WithdrawReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Feedback" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="C_tblUser" Relationship="Self.FK__tblWithdraw__tblUser" FromRole="C_tblWithdraw" ToRole="C_tblUser" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__tblAmount__tblUser">
+          <End Role="C_tblUser" Type="Self.C_tblUser" Multiplicity="1" />
+          <End Role="C_tblAmount" Type="Self.C_tblAmount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="C_tblAmount">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblDuration__tblUser">
+          <End Role="C_tblUser" Type="Self.C_tblUser" Multiplicity="1" />
+          <End Role="C_tblDuration" Type="Self.C_tblDuration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="C_tblDuration">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSavingMethod__tblUser">
+          <End Role="C_tblUser" Type="Self.C_tblUser" Multiplicity="1" />
+          <End Role="C_tblSavingMethod" Type="Self.C_tblSavingMethod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="C_tblSavingMethod">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblUserAdmin__tblUser">
+          <End Role="C_tblUser" Type="Self.C_tblUser" Multiplicity="1" />
+          <End Role="C_tblUserAdmin" Type="Self.C_tblUserAdmin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="C_tblUserAdmin">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWithdraw__tblUser">
+          <End Role="C_tblUser" Type="Self.C_tblUser" Multiplicity="1" />
+          <End Role="C_tblWithdraw" Type="Self.C_tblWithdraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="C_tblWithdraw">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DEBEXCELEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C_tblAmount" EntityType="Self.C_tblAmount" />
+          <EntitySet Name="C_tblDuration" EntityType="Self.C_tblDuration" />
+          <EntitySet Name="C_tblSavingMethod" EntityType="Self.C_tblSavingMethod" />
+          <EntitySet Name="C_tblUser" EntityType="Self.C_tblUser" />
+          <EntitySet Name="C_tblUserAdmin" EntityType="Self.C_tblUserAdmin" />
+          <EntitySet Name="C_tblWithdraw" EntityType="Self.C_tblWithdraw" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK__tblAmount__tblUser" Association="Self.FK__tblAmount__tblUser">
+            <End Role="C_tblUser" EntitySet="C_tblUser" />
+            <End Role="C_tblAmount" EntitySet="C_tblAmount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblDuration__tblUser" Association="Self.FK__tblDuration__tblUser">
+            <End Role="C_tblUser" EntitySet="C_tblUser" />
+            <End Role="C_tblDuration" EntitySet="C_tblDuration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSavingMethod__tblUser" Association="Self.FK__tblSavingMethod__tblUser">
+            <End Role="C_tblUser" EntitySet="C_tblUser" />
+            <End Role="C_tblSavingMethod" EntitySet="C_tblSavingMethod" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblUserAdmin__tblUser" Association="Self.FK__tblUserAdmin__tblUser">
+            <End Role="C_tblUser" EntitySet="C_tblUser" />
+            <End Role="C_tblUserAdmin" EntitySet="C_tblUserAdmin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWithdraw__tblUser" Association="Self.FK__tblWithdraw__tblUser">
+            <End Role="C_tblUser" EntitySet="C_tblUser" />
+            <End Role="C_tblWithdraw" EntitySet="C_tblWithdraw" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DEBEXCELModelStoreContainer" CdmEntityContainer="DEBEXCELEntities">
+          <EntitySetMapping Name="C_tblAmount">
+            <EntityTypeMapping TypeName="DEBEXCELModel.C_tblAmount">
+              <MappingFragment StoreEntitySet="_tblAmount">
+                <ScalarProperty Name="AmountID" ColumnName="AmountID" />
+                <ScalarProperty Name="AmuntPrice" ColumnName="AmuntPrice" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblDuration">
+            <EntityTypeMapping TypeName="DEBEXCELModel.C_tblDuration">
+              <MappingFragment StoreEntitySet="_tblDuration">
+                <ScalarProperty Name="DurationID" ColumnName="DurationID" />
+                <ScalarProperty Name="Months" ColumnName="Months" />
+                <ScalarProperty Name="Twilight" ColumnName="Twilight" />
+                <ScalarProperty Name="Weekly" ColumnName="Weekly" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblSavingMethod">
+            <EntityTypeMapping TypeName="DEBEXCELModel.C_tblSavingMethod">
+              <MappingFragment StoreEntitySet="_tblSavingMethod">
+                <ScalarProperty Name="MethodID" ColumnName="MethodID" />
+                <ScalarProperty Name="Online" ColumnName="Online" />
+                <ScalarProperty Name="Offline" ColumnName="Offline" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblUser">
+            <EntityTypeMapping TypeName="DEBEXCELModel.C_tblUser">
+              <MappingFragment StoreEntitySet="_tblUser">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="SavingMethod" ColumnName="SavingMethod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblUserAdmin">
+            <EntityTypeMapping TypeName="DEBEXCELModel.C_tblUserAdmin">
+              <MappingFragment StoreEntitySet="_tblUserAdmin">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SavingID" ColumnName="SavingID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblWithdraw">
+            <EntityTypeMapping TypeName="DEBEXCELModel.C_tblWithdraw">
+              <MappingFragment StoreEntitySet="_tblWithdraw">
+                <ScalarProperty Name="WithdrawID" ColumnName="WithdrawID" />
+                <ScalarProperty Name="WitdrawMethod" ColumnName="WitdrawMethod" />
+                <ScalarProperty Name="WithdrawReason" ColumnName="WithdrawReason" />
+                <ScalarProperty Name="Feedback" ColumnName="Feedback" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DEBEXCELModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

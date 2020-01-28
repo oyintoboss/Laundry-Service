@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="_tblActivity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+          </Key>
+          <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActivityNames" Type="varchar" MaxLength="20" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblBooking">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingReason" Type="varchar(max)" Nullable="false" />
+          <Property Name="Starttimestamp" Type="datetime" Nullable="false" />
+          <Property Name="Endtimestamp" Type="datetime" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="ActivityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblCourses">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="CourseList" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="CourseDuration" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="starttimestamp" Type="datetime" />
+          <Property Name="endtimestamp" Type="datetime" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_tblUserReg">
+          <Key>
+            <PropertyRef Name="roleID" />
+          </Key>
+          <Property Name="roleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="emailAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="phoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="Userrole" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APhonenumber" Type="varchar" MaxLength="15" />
+          <Property Name="Comments" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK__tblActivity__tblUserReg">
+          <End Role="_tblUserReg" Type="Self._tblUserReg" Multiplicity="1" />
+          <End Role="_tblActivity" Type="Self._tblActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblUserReg">
+              <PropertyRef Name="roleID" />
+            </Principal>
+            <Dependent Role="_tblActivity">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBooking__tblBooking1">
+          <End Role="_tblBooking" Type="Self._tblBooking" Multiplicity="1" />
+          <End Role="_tblBooking1" Type="Self._tblBooking" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="_tblBooking">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="_tblBooking1">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblCourses__tblUserReg2">
+          <End Role="_tblUserReg" Type="Self._tblUserReg" Multiplicity="1" />
+          <End Role="_tblCourses" Type="Self._tblCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_tblUserReg">
+              <PropertyRef Name="roleID" />
+            </Principal>
+            <Dependent Role="_tblCourses">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DTModelStoreContainer">
+          <EntitySet Name="_tblActivity" EntityType="Self._tblActivity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblBooking" EntityType="Self._tblBooking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblCourses" EntityType="Self._tblCourses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_tblUserReg" EntityType="Self._tblUserReg" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblActivity__tblUserReg" Association="Self.FK__tblActivity__tblUserReg">
+            <End Role="_tblUserReg" EntitySet="_tblUserReg" />
+            <End Role="_tblActivity" EntitySet="_tblActivity" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblBooking__tblBooking1" Association="Self.FK__tblBooking__tblBooking1">
+            <End Role="_tblBooking" EntitySet="_tblBooking" />
+            <End Role="_tblBooking1" EntitySet="_tblBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblCourses__tblUserReg2" Association="Self.FK__tblCourses__tblUserReg2">
+            <End Role="_tblUserReg" EntitySet="_tblUserReg" />
+            <End Role="_tblCourses" EntitySet="_tblCourses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C_tblActivity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityNames" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="C_tblUserReg" Relationship="Self.FK__tblActivity__tblUserReg" FromRole="C_tblActivity" ToRole="C_tblUserReg" />
+        </EntityType>
+        <EntityType Name="C_tblBooking">
+          <Key>
+            <PropertyRef Name="BookID" />
+          </Key>
+          <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Starttimestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Endtimestamp" Type="DateTime" Precision="3" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="C_tblBooking1" Relationship="Self.FK__tblBooking__tblBooking1" FromRole="C_tblBooking" ToRole="C_tblBooking1" />
+          <NavigationProperty Name="C_tblBooking2" Relationship="Self.FK__tblBooking__tblBooking1" FromRole="C_tblBooking1" ToRole="C_tblBooking" />
+        </EntityType>
+        <EntityType Name="C_tblCourses">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseList" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CourseDuration" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="starttimestamp" Type="DateTime" Precision="3" />
+          <Property Name="endtimestamp" Type="DateTime" Precision="3" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="C_tblUserReg" Relationship="Self.FK__tblCourses__tblUserReg2" FromRole="C_tblCourses" ToRole="C_tblUserReg" />
+        </EntityType>
+        <EntityType Name="C_tblUserReg">
+          <Key>
+            <PropertyRef Name="roleID" />
+          </Key>
+          <Property Name="roleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="emailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Userrole" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="C_tblActivity" Relationship="Self.FK__tblActivity__tblUserReg" FromRole="C_tblUserReg" ToRole="C_tblActivity" />
+          <NavigationProperty Name="C_tblCourses" Relationship="Self.FK__tblCourses__tblUserReg2" FromRole="C_tblUserReg" ToRole="C_tblCourses" />
+          <Property Name="APhonenumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__tblActivity__tblUserReg">
+          <End Role="C_tblUserReg" Type="Self.C_tblUserReg" Multiplicity="1" />
+          <End Role="C_tblActivity" Type="Self.C_tblActivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblUserReg">
+              <PropertyRef Name="roleID" />
+            </Principal>
+            <Dependent Role="C_tblActivity">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblBooking__tblBooking1">
+          <End Role="C_tblBooking" Type="Self.C_tblBooking" Multiplicity="1" />
+          <End Role="C_tblBooking1" Type="Self.C_tblBooking" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblBooking">
+              <PropertyRef Name="BookID" />
+            </Principal>
+            <Dependent Role="C_tblBooking1">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblCourses__tblUserReg2">
+          <End Role="C_tblUserReg" Type="Self.C_tblUserReg" Multiplicity="1" />
+          <End Role="C_tblCourses" Type="Self.C_tblCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_tblUserReg">
+              <PropertyRef Name="roleID" />
+            </Principal>
+            <Dependent Role="C_tblCourses">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C_tblActivity" EntityType="Self.C_tblActivity" />
+          <EntitySet Name="C_tblBooking" EntityType="Self.C_tblBooking" />
+          <EntitySet Name="C_tblCourses" EntityType="Self.C_tblCourses" />
+          <EntitySet Name="C_tblUserReg" EntityType="Self.C_tblUserReg" />
+          <AssociationSet Name="FK__tblActivity__tblUserReg" Association="Self.FK__tblActivity__tblUserReg">
+            <End Role="C_tblUserReg" EntitySet="C_tblUserReg" />
+            <End Role="C_tblActivity" EntitySet="C_tblActivity" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblBooking__tblBooking1" Association="Self.FK__tblBooking__tblBooking1">
+            <End Role="C_tblBooking" EntitySet="C_tblBooking" />
+            <End Role="C_tblBooking1" EntitySet="C_tblBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblCourses__tblUserReg2" Association="Self.FK__tblCourses__tblUserReg2">
+            <End Role="C_tblUserReg" EntitySet="C_tblUserReg" />
+            <End Role="C_tblCourses" EntitySet="C_tblCourses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DTModelStoreContainer" CdmEntityContainer="DTEntities">
+          <EntitySetMapping Name="C_tblActivity">
+            <EntityTypeMapping TypeName="DTModel.C_tblActivity">
+              <MappingFragment StoreEntitySet="_tblActivity">
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="ActivityNames" ColumnName="ActivityNames" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblBooking">
+            <EntityTypeMapping TypeName="DTModel.C_tblBooking">
+              <MappingFragment StoreEntitySet="_tblBooking">
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="BookingReason" ColumnName="BookingReason" />
+                <ScalarProperty Name="Starttimestamp" ColumnName="Starttimestamp" />
+                <ScalarProperty Name="Endtimestamp" ColumnName="Endtimestamp" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblCourses">
+            <EntityTypeMapping TypeName="DTModel.C_tblCourses">
+              <MappingFragment StoreEntitySet="_tblCourses">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseList" ColumnName="CourseList" />
+                <ScalarProperty Name="CourseDuration" ColumnName="CourseDuration" />
+                <ScalarProperty Name="starttimestamp" ColumnName="starttimestamp" />
+                <ScalarProperty Name="endtimestamp" ColumnName="endtimestamp" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C_tblUserReg">
+            <EntityTypeMapping TypeName="DTModel.C_tblUserReg">
+              <MappingFragment StoreEntitySet="_tblUserReg">
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="APhonenumber" ColumnName="APhonenumber" />
+                <ScalarProperty Name="roleID" ColumnName="roleID" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Userrole" ColumnName="Userrole" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
